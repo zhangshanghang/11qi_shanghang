@@ -1,19 +1,16 @@
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
+from selenium.webdriver.common.by import By
 
-
-
-
+from test_appium.page.base_page import Basepage
 from test_appium.page.search import Search
+from test_appium.page.wode import Wode
 
 
-class ZhuYe:
-    _driver : webdriver
-    def __init__(self,driver):
-        self._driver=driver
+class ZhuYe(Basepage):
 
     def goto_search_page(self):
-        self._driver.find_element(MobileBy.ID, "home_search").click()
+        self.find(MobileBy.ID, "tv_search").click()
         return Search(self._driver)
 
     def goto_Hangqing_page(self):
@@ -23,7 +20,10 @@ class ZhuYe:
         pass
 
     def goto_WoDe_page(self):
-        pass
+        self.find(By.XPATH, "//*[@text= '我的' ]").click()
+        return Wode(self._driver)
+
+
 
     def goto_Xiaoxi_page(self):
         pass

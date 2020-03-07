@@ -1,17 +1,16 @@
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 
+from test_appium.page.base_page import Basepage
 
-class Search:
-    _driver: webdriver
 
-    def __init__(self, driver):
-        self._driver = driver
+class Search(Basepage):
 
+    _name_locator=(MobileBy.ID, "name")
     def search(self , key : str):
-        self._driver.find_element(MobileBy.ID, "search_input_text").send_keys(key)
-        self._driver.find_element(MobileBy.ID, "name").click()
+        self.find(MobileBy.ID, "search_input_text").send_keys(key)
+        self.find(self._name_locator).click()
         return self
 
     def get_price(self, key:str) -> float:
-        return float(self._driver.find_element(MobileBy.XPATH,"//*[@text='09988']/../../..//*[contains(@resource-id,'current_price')]").text)
+        return float(self.find(MobileBy.ID, "current_price").text)
